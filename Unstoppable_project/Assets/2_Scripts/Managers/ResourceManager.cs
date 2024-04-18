@@ -44,7 +44,7 @@ public class ResourceManager
         go.name = prefab.name;
 
         if (parent != null)
-            go.transform.parent = parent;
+            go.transform.SetParent(parent);
 
         return go;
     }

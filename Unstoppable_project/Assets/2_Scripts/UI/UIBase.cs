@@ -79,24 +79,24 @@ public class UIBase : InitBase
         return objects[index] as T;
     }
 
-    protected GameObject GetObjects(int index)
+    protected GameObject GetObject(int index)
     {
         return Get<GameObject>(index);
     }
-    protected TextMeshProUGUI GetTexts(int index)
+    protected TextMeshProUGUI GetText(int index)
     {
         return Get<TextMeshProUGUI>(index);
     }
-    protected Image GetImages(int index)
+    protected Image GetImage(int index)
     {
         return Get<Image>(index);
     }
-    protected Button GetButtons(int index)
+    protected Button GetButton(int index)
     {
         return Get<Button>(index);
     }
 
-    protected void BindUIEvent(GameObject go, Define.EUIEventType eventType = Define.EUIEventType.Click, Action<PointerEventData> action = null)
+    protected void BindUIEvent(GameObject go, Action<PointerEventData> action = null, Define.EUIEventType eventType = Define.EUIEventType.Click)
     {
         UI_EventComponent evt = go.AddComponent<UI_EventComponent>();
 

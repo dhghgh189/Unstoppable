@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SceneBase : InitBase
 {
@@ -10,6 +11,14 @@ public class SceneBase : InitBase
     {
         if (base.Init() == false)
             return false;
+
+        EventSystem evt = FindAnyObjectByType<EventSystem>();
+        if (evt == null)
+        {
+            GameObject go = new GameObject("@EventSystem");
+            go.AddComponent<EventSystem>();
+            go.AddComponent<StandaloneInputModule>();
+        }
 
         return true;
     }

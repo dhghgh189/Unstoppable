@@ -20,4 +20,12 @@ public class Define
     {
         Click,
     }
+
+    public enum EInputEventType
+    {
+        JumpDown,
+        JumpUp,
+        SlideDown,
+        SlideUp,
+    }
 }

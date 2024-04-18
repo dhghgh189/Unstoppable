@@ -29,8 +29,24 @@ public class theApp : MonoBehaviour
     }
 
     private ResourceManager _res = new ResourceManager();
+    private UIManager _ui = new UIManager();
+    private InputManager _input = new InputManager();
+
     public static ResourceManager Res
     {
         get { return Instance._res; }
+    }
+    public static UIManager UI
+    {
+        get { return Instance._ui; }
+    }
+    public static InputManager Input
+    { 
+        get { return Instance._input; } 
+    }
+
+    private void Update()
+    {
+        _input.OnUpdate();
     }
 }
