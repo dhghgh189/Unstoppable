@@ -11,6 +11,8 @@ public class GameScene : SceneBase
 
         eSceneType = Define.ESceneType.GameScene;
 
+        theApp.Sound.PlaySound(Define.ESoundType.Bgm, "Audio/Bgm/gameLoop");
+
         return true;
     }
 }

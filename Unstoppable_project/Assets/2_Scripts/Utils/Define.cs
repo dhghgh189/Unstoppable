@@ -28,4 +28,11 @@ public class Define
         SlideDown,
         SlideUp,
     }
+
+    public enum ESoundType
+    {
+        Bgm,
+        Sfx,
+        Max,
+    }
 }

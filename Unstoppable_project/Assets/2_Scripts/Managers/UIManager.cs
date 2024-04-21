@@ -54,10 +54,7 @@ public class UIManager
 
         GameObject go = theApp.Res.Instantiate($"UI/Scene/{name}", UI_Root);
         if (go == null)
-        {
-            Debug.Log($"ShowSceneUI Error! : {name}");
             return null;
-        }
 
         T sceneUI = go.GetComponent<T>();
         if (sceneUI == null)
@@ -78,10 +75,7 @@ public class UIManager
 
         GameObject go = theApp.Res.Instantiate($"UI/Popup/{name}", UI_Root);
         if (go == null)
-        {
-            Debug.Log($"ShowPopupUI Error! : {name}");
             return null;
-        }
 
         T popupUI = go.GetComponent<T>();
         if (popupUI == null)

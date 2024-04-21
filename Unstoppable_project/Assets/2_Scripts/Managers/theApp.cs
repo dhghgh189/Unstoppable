@@ -22,6 +22,8 @@ public class theApp : MonoBehaviour
                 _instance = go.GetComponent<theApp>();
 
                 DontDestroyOnLoad(go);
+
+                _instance._sound.Init();
             }
 
             return _instance;
@@ -31,6 +33,7 @@ public class theApp : MonoBehaviour
     private ResourceManager _res = new ResourceManager();
     private UIManager _ui = new UIManager();
     private InputManager _input = new InputManager();
+    private SoundManager _sound = new SoundManager();
 
     public static ResourceManager Res
     {
@@ -43,6 +46,10 @@ public class theApp : MonoBehaviour
     public static InputManager Input
     { 
         get { return Instance._input; } 
+    }
+    public static SoundManager Sound
+    { 
+        get { return Instance._sound; } 
     }
 
     private void Update()

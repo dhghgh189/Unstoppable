@@ -35,10 +35,7 @@ public class ResourceManager
         GameObject prefab = Load<GameObject>(path);
 
         if (prefab == null) 
-        {
-            Debug.Log($"prefab is empty!");
             return null;
-        }
 
         GameObject go = GameObject.Instantiate(prefab);
         go.name = prefab.name;
