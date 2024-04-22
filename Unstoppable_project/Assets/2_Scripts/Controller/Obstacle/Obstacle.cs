@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : InitBase
 {
     Rigidbody2D rb;
-    [SerializeField] float moveSpeed;
 
-    private void Awake()
+    [SerializeField] protected float moveSpeed;
+
+    protected override bool Init()
     {
+        if (base.Init() == false)
+            return false;
+
         rb = GetComponent<Rigidbody2D>();
+
+        return true;
     }
 
-    public void SetSpeed(float speed)
+    public virtual void SetSpeed(float speed)
     {
         moveSpeed = speed;
     }
@@ -36,6 +42,9 @@ public class Obstacle : MonoBehaviour
     {
         // TODO : 장애물이 움직일 때의 동작 구현
         rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+
+        if (transform.position.x <= theApp.Data.spawnData.destroyOffsetX)
+            theApp.Res.Destroy(gameObject);
     }
 
     public virtual void OnTrigger(PlayerController player)

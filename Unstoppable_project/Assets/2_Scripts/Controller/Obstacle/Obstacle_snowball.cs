@@ -5,6 +5,13 @@ using UnityEngine;
 public class Obstacle_snowball : Obstacle
 {
     [SerializeField] float rotateSpeed;
+
+    public override void SetSpeed(float speed)
+    {
+        base.SetSpeed(speed);
+        rotateSpeed = moveSpeed * 30f;
+    }
+
     public override void UpdateMove()
     {
         base.UpdateMove();

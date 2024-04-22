@@ -24,6 +24,7 @@ public class theApp : MonoBehaviour
                 DontDestroyOnLoad(go);
 
                 _instance._sound.Init();
+                _instance._data.Init();
             }
 
             return _instance;
@@ -34,6 +35,7 @@ public class theApp : MonoBehaviour
     private UIManager _ui = new UIManager();
     private InputManager _input = new InputManager();
     private SoundManager _sound = new SoundManager();
+    private DataManager _data = new DataManager();
 
     public static ResourceManager Res
     {
@@ -50,6 +52,10 @@ public class theApp : MonoBehaviour
     public static SoundManager Sound
     { 
         get { return Instance._sound; } 
+    }
+    public static DataManager Data
+    {
+        get { return Instance._data; }
     }
 
     private void Update()

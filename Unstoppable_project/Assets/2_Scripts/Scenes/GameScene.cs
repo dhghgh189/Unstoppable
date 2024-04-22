@@ -13,6 +13,8 @@ public class GameScene : SceneBase
 
         theApp.Sound.PlaySound(Define.ESoundType.Bgm, "Audio/Bgm/gameLoop");
 
+        theApp.Res.Instantiate("Prefabs/Spawner");
+        
         return true;
     }
 }

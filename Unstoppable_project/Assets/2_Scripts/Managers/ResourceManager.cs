@@ -37,6 +37,11 @@ public class ResourceManager
         if (prefab == null) 
             return null;
 
+        return Instantiate(prefab, parent);
+    }
+
+    public GameObject Instantiate(GameObject prefab, Transform parent = null)
+    {
         GameObject go = GameObject.Instantiate(prefab);
         go.name = prefab.name;
 
