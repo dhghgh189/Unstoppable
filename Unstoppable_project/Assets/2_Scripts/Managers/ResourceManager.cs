@@ -25,8 +25,6 @@ public class ResourceManager
 
         _objects.Add(obj.name, obj);
 
-        Debug.Log($"Resource Loaded : {path}");
-
         return obj as T;
     }
 

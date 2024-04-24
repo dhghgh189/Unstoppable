@@ -7,6 +7,7 @@ public class InputManager
 {
     public Action<Define.EInputEventType> OnJumpInput = null;
     public Action<Define.EInputEventType> OnSlideInput = null;
+    public Action<Define.EInputEventType> OnUseItemInput = null;
 
     public void OnUpdate()
     {
@@ -19,5 +20,8 @@ public class InputManager
             OnSlideInput?.Invoke(Define.EInputEventType.SlideDown);
         if (Input.GetKeyUp(KeyCode.DownArrow))
             OnSlideInput?.Invoke(Define.EInputEventType.SlideUp);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            OnUseItemInput?.Invoke(Define.EInputEventType.UseItem);
     }
 }

@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
 
     [SerializeField] private float jumpPower;
+    private int additionalJump;
+
+    const int ITEM_SLOT_MAX = 2; 
+    private Stack<Item> itemSlot = new Stack<Item>();
 
     private bool isGround;
     private bool isSlide;
@@ -38,6 +42,11 @@ public class PlayerController : MonoBehaviour
 
         theApp.Input.OnSlideInput -= OnSlideEvent;
         theApp.Input.OnSlideInput += OnSlideEvent;
+
+        theApp.Input.OnUseItemInput -= OnUseItemEvent;
+        theApp.Input.OnUseItemInput += OnUseItemEvent;
+
+        additionalJump = 0;
     }
 
     void Update()
@@ -80,9 +89,12 @@ public class PlayerController : MonoBehaviour
             case Define.EInputEventType.JumpDown:
                 if (isGround == true)
                 {
-                    rb.velocity = Vector2.zero;
-                    rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-                    theApp.Sound.PlaySound(Define.ESoundType.Sfx, "Audio/Sfx/Jump");
+                    Jump();
+                }
+                else if (additionalJump > 0)
+                {
+                    additionalJump--;
+                    Jump();
                 }
                 break;
             case Define.EInputEventType.JumpUp:
@@ -119,7 +131,41 @@ public class PlayerController : MonoBehaviour
     public void OnDead()
     {
         // TODO : 플레이어 사망 처리
-        Debug.Log("Player Dead!");
+        
+        // 임시 
         anim.enabled = false;
+    }
+
+    public void Jump()
+    {
+        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        theApp.Sound.PlaySound(Define.ESoundType.Sfx, "Audio/Sfx/Jump");
+    }
+
+    public void AddJump(int amount)
+    {
+        additionalJump += amount;
+    }
+
+    public bool PushItem(Item item)
+    {
+        if (itemSlot.Count >= ITEM_SLOT_MAX)
+            return false;
+
+        itemSlot.Push(item);
+        return true;
+    } 
+
+    public void OnUseItemEvent(Define.EInputEventType eventType)
+    {
+        if (itemSlot.Count <= 0)
+            return;
+
+        Item activeItem = itemSlot.Pop();
+        activeItem.Use();
+
+        // 아이템 사용 유무를 확인하기 위한 test code
+        Debug.Log("use active item");
     }
 }

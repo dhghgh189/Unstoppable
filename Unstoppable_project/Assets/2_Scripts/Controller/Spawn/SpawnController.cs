@@ -8,11 +8,23 @@ public class SpawnController : MonoBehaviour
     float spawnCoolTimeMin;
     float spawnCoolTimeMax;
 
+    float moveSpeed;
+
+    // TODO :
+    // 스폰할 아이템의 id를 가지고 있는 컨테이너 필요
+    // 해당 컨테이너는 spawner가 초기화 될때 itemdata dictionary에서
+    // key값을 반복으로 받아와서 컨테이너에 저장하도록 해야함
+
+    // 또한 ItemSpawnOffsetY의 min, max 변수가 필요
+    // (아이템이 스폰될때 y 위치값을 min ~ max에서 랜덤하게 지정)
+
     void Start()
     {
         nextSpawnTime = 0f;
         spawnCoolTimeMin = theApp.Data.spawnData.spawnCoolTimeMin;
         spawnCoolTimeMax = theApp.Data.spawnData.spawnCoolTimeMax;
+
+        moveSpeed = 3f;
     }
 
     void Update()
@@ -22,6 +34,8 @@ public class SpawnController : MonoBehaviour
             nextSpawnTime = Time.time + Random.Range(spawnCoolTimeMin, spawnCoolTimeMax);
             SpawnObstacle();
         }
+
+        // TODO : SpawnItem 구현 필요
     }
 
     void SpawnObstacle()
@@ -48,6 +62,6 @@ public class SpawnController : MonoBehaviour
         }
 
         obstacle.transform.position = new Vector3(xPos, go.transform.position.y, 0f);
-        obstacle.SetSpeed(3f);
+        obstacle.SetSpeed(moveSpeed);
     }
 }

@@ -36,6 +36,7 @@ public class theApp : MonoBehaviour
     private InputManager _input = new InputManager();
     private SoundManager _sound = new SoundManager();
     private DataManager _data = new DataManager();
+    private GameManager _game = new GameManager();
 
     public static ResourceManager Res
     {
@@ -56,6 +57,10 @@ public class theApp : MonoBehaviour
     public static DataManager Data
     {
         get { return Instance._data; }
+    }
+    public static GameManager Game
+    {
+        get { return Instance._game; } 
     }
 
     private void Update()

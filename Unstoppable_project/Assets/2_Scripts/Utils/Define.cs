@@ -27,6 +27,7 @@ public class Define
         JumpUp,
         SlideDown,
         SlideUp,
+        UseItem,
     }
 
     public enum ESoundType
@@ -34,5 +35,11 @@ public class Define
         Bgm,
         Sfx,
         Max,
+    }
+
+    public enum ItemType
+    {
+        Passive,
+        Active,
     }
 }
