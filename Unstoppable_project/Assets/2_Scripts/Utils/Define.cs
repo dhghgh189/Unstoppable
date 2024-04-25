@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Define
+public static class Define
 {
     public enum ESceneType
     {
@@ -37,9 +37,18 @@ public class Define
         Max,
     }
 
-    public enum ItemType
+    public enum EItemType
     {
         Passive,
         Active,
     }
+
+    public enum EBroadCastType
+    {
+        ChangeScore,
+        AddItem,
+        UseItem,
+    }
+
+    public const int ITEM_SLOT_MAX = 2;
 }

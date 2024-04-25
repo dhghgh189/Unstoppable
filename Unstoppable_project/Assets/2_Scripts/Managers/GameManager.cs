@@ -12,12 +12,14 @@ public class GameManager
         set
         {
             _score = value;
-            OnScoreChange?.Invoke(value);
-
-            // TEST
-            Debug.Log($"Change Score : {value}");
+            OnBroadCastEvent?.Invoke(Define.EBroadCastType.ChangeScore, value);
         }
     }
 
-    public Action<float> OnScoreChange = null;
+    public Action<Define.EBroadCastType, object> OnBroadCastEvent = null;
+
+    public void OnBroadCastFunc(Define.EBroadCastType type, object obj)
+    {
+        OnBroadCastEvent?.Invoke(type, obj);
+    }
 }

@@ -16,8 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
     private int additionalJump;
 
-    const int ITEM_SLOT_MAX = 2; 
-    private Stack<Item> itemSlot = new Stack<Item>();
+    private List<Item> itemSlot = new List<Item>();
 
     private bool isGround;
     private bool isSlide;
@@ -150,10 +149,11 @@ public class PlayerController : MonoBehaviour
 
     public bool PushItem(Item item)
     {
-        if (itemSlot.Count >= ITEM_SLOT_MAX)
+        if (itemSlot.Count >= Define.ITEM_SLOT_MAX)
             return false;
 
-        itemSlot.Push(item);
+        itemSlot.Add(item);
+        theApp.Game.OnBroadCastFunc(Define.EBroadCastType.AddItem, itemSlot);
         return true;
     } 
 
@@ -162,10 +162,12 @@ public class PlayerController : MonoBehaviour
         if (itemSlot.Count <= 0)
             return;
 
-        Item activeItem = itemSlot.Pop();
+        int index = itemSlot.Count - 1;
+
+        Item activeItem = itemSlot[index];
         activeItem.Use();
 
-        // 아이템 사용 유무를 확인하기 위한 test code
-        Debug.Log("use active item");
+        itemSlot.RemoveAt(index);
+        theApp.Game.OnBroadCastFunc(Define.EBroadCastType.UseItem, itemSlot);
     }
 }

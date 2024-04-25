@@ -13,7 +13,7 @@ public class ItemData : ScriptableObject, ILoader<int>
 {
     public int ItemID;
     public string ItemName;
-    public Define.ItemType ItemType;
+    public Define.EItemType ItemType;
     public Sprite ItemSprite;
     public string ClassName;
     public float Value;

@@ -13,7 +13,12 @@ public class GameScene : SceneBase
 
         theApp.Sound.PlaySound(Define.ESoundType.Bgm, "Audio/Bgm/gameLoop");
 
+        GameObject player = theApp.Res.Instantiate("Prefabs/Player");
+        player.transform.position = new Vector3(-2f, -2.25f, 0f);
+
         theApp.Res.Instantiate("Prefabs/Spawner");
+
+        theApp.UI.ShowSceneUI<UI_GameScene>();
 
         // TEST
         //int itemID = 100; // fish item id

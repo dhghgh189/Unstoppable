@@ -9,7 +9,7 @@ public abstract class Item
     protected ItemData _data;
 
     public ItemData Data { get { return _data; } }
-    public Define.ItemType ItemType { get { return _data.ItemType; } }
+    public Define.EItemType ItemType { get { return _data.ItemType; } }
     public float Value { get { return _data.Value; } }
 
     public void SetInfo(ItemData data, PlayerController owner)

@@ -47,6 +47,25 @@ public class UIManager
             canvas.sortingOrder = order;
     }
 
+    public T MakeSubItem<T>(string name = null, Transform parent = null) where T : UIBase
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = theApp.Res.Instantiate($"UI/SubItem/{name}", parent);
+        if (go == null)
+            return null;
+
+        T subItem = go.GetComponent<T>();
+        if (subItem == null)
+        {
+            Debug.Log($"Invalid SubItem! : {name}");
+            return null;
+        }
+
+        return subItem;
+    }
+
     public T ShowSceneUI<T>(string name = null) where T : SceneUI
     {
         if (string.IsNullOrEmpty(name))

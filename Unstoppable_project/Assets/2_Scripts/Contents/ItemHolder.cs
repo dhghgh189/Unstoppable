@@ -40,7 +40,7 @@ public class ItemHolder : MonoBehaviour
             theApp.Res.Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
@@ -55,13 +55,13 @@ public class ItemHolder : MonoBehaviour
             switch (item.ItemType)
             {
                 // 아이템 type이 Passive인 경우
-                case Define.ItemType.Passive:
+                case Define.EItemType.Passive:
                     item.Use(); // 바로 사용
                     // holder 파괴
                     theApp.Res.Destroy(gameObject);
                     break;
                 // 아이템 type이 Active인 경우
-                case Define.ItemType.Active:
+                case Define.EItemType.Active:
                     bool isAdded = owner.PushItem(item); // Slot에 아이템 추가
                     // item이 slot에 추가됬으면 holder 파괴
                     if (isAdded)
