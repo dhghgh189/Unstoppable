@@ -18,3 +18,4 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 76144d95743d64f40af1f8e6bb40a0a1, type: 3}
   ClassName: Feather
   Value: 1
+  SpawnPercent: 0.5

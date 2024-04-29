@@ -37,6 +37,7 @@ public class theApp : MonoBehaviour
     private SoundManager _sound = new SoundManager();
     private DataManager _data = new DataManager();
     private GameManager _game = new GameManager();
+    private SceneManagerEx _scene = new SceneManagerEx();
 
     public static ResourceManager Res
     {
@@ -63,8 +64,20 @@ public class theApp : MonoBehaviour
         get { return Instance._game; } 
     }
 
+    public static SceneManagerEx Scene
+    { 
+        get { return Instance._scene; } 
+    }
+
     private void Update()
     {
         _input.OnUpdate();
+    }
+
+    public static void Clear()
+    {
+        // 현재 생성되어 있는 ui 정리
+        Input.Clear();
+        UI.Clear(); // ui clear
     }
 }

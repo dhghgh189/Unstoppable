@@ -17,6 +17,7 @@ public class ItemData : ScriptableObject, ILoader<int>
     public Sprite ItemSprite;
     public string ClassName;
     public float Value;
+    public float SpawnPercent;
 
     public int GetKey()
     {

@@ -48,6 +48,7 @@ public static class Define
         ChangeScore,
         AddItem,
         UseItem,
+        GameOver,
     }
 
     public const int ITEM_SLOT_MAX = 2;

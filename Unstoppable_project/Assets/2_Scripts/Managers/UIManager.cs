@@ -144,4 +144,15 @@ public class UIManager
         while (_popupUIs.Count > 0)
             ClosePopupUI();
     }
+
+    public void Clear()
+    {
+        CloseAllPopupUI();
+
+        if (_sceneUI != null)
+        {
+            theApp.Res.Destroy(_sceneUI.gameObject);
+            _sceneUI = null;
+        }    
+    }
 }

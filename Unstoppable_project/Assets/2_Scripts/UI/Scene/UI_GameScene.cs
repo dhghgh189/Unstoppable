@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,12 @@ public class UI_GameScene : SceneUI
     enum GameObjects
     {
         SlotParent,
+        GameOverParent,
+    }
+
+    enum Buttons
+    {
+        btnRetry,
     }
 
     UI_SlotItem[] slotItems = new UI_SlotItem[Define.ITEM_SLOT_MAX];
@@ -26,6 +33,15 @@ public class UI_GameScene : SceneUI
 
         BindTexts(typeof(Texts));
         BindObjects(typeof(GameObjects));
+        BindButtons(typeof(Buttons));
+
+        BindUIEvent(GetButton((int)Buttons.btnRetry).gameObject, (evt) =>
+        {
+            theApp.Game.OnBroadCastEvent -= ReceiveBroadCast;
+            theApp.Scene.LoadScene(Define.ESceneType.GameScene);
+        });
+
+        GetObject((int)GameObjects.GameOverParent).SetActive(false);
 
         GameObject slotParent = GetObject((int)GameObjects.SlotParent);
 
@@ -56,6 +72,9 @@ public class UI_GameScene : SceneUI
             case Define.EBroadCastType.UseItem:
                 RefreshSlotItem(obj as List<Item>);
                 break;
+            case Define.EBroadCastType.GameOver:
+                OnGameOver();
+                break;
         }
     }
 
@@ -78,5 +97,10 @@ public class UI_GameScene : SceneUI
                 slotItems[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    void OnGameOver()
+    {
+        GetObject((int)GameObjects.GameOverParent).SetActive(true);
     }
 }

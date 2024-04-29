@@ -34,6 +34,12 @@ public class ItemHolder : MonoBehaviour
 
     void Update()
     {
+        if (theApp.Game.isGameOver)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
 
         if (transform.position.x <= theApp.Data.spawnData.destroyOffsetX)
@@ -42,6 +48,9 @@ public class ItemHolder : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (theApp.Game.isGameOver)
+            return;
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerController owner = other.gameObject.GetComponentInParent<PlayerController>();

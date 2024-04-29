@@ -8,15 +8,13 @@ public class SpawnController : MonoBehaviour
     float spawnCoolTimeMin;
     float spawnCoolTimeMax;
 
+    float itemSpawnTick;
+    float currentTick;
+
+    float itemSpawnMinY;
+    float itemSpawnMaxY;
+
     float moveSpeed;
-
-    // TODO :
-    // 스폰할 아이템의 id를 가지고 있는 컨테이너 필요
-    // 해당 컨테이너는 spawner가 초기화 될때 itemdata dictionary에서
-    // key값을 반복으로 받아와서 컨테이너에 저장하도록 해야함
-
-    // 또한 ItemSpawnOffsetY의 min, max 변수가 필요
-    // (아이템이 스폰될때 y 위치값을 min ~ max에서 랜덤하게 지정)
 
     void Start()
     {
@@ -24,18 +22,36 @@ public class SpawnController : MonoBehaviour
         spawnCoolTimeMin = theApp.Data.spawnData.spawnCoolTimeMin;
         spawnCoolTimeMax = theApp.Data.spawnData.spawnCoolTimeMax;
 
+        itemSpawnTick = theApp.Data.spawnData.itemSpawnCoolTime;
+        currentTick = 0f;
+
+        itemSpawnMinY = theApp.Data.spawnData.itemSpawnMinY;
+        itemSpawnMaxY = theApp.Data.spawnData.itemSpawnMaxY;
+
         moveSpeed = 3f;
     }
 
     void Update()
     {
+        if (theApp.Game.isGameOver)
+            return;
+
         if (Time.time >= nextSpawnTime)
         {
             nextSpawnTime = Time.time + Random.Range(spawnCoolTimeMin, spawnCoolTimeMax);
             SpawnObstacle();
         }
 
-        // TODO : SpawnItem 구현 필요
+        if (currentTick >= itemSpawnTick)
+        {
+            float rand = Random.value;
+            if (rand <= theApp.Data.spawnData.itemSpawnPercent)
+                SpawnItem();               
+
+            currentTick = 0;
+        }
+
+        currentTick += Time.deltaTime;
     }
 
     void SpawnObstacle()
@@ -63,5 +79,33 @@ public class SpawnController : MonoBehaviour
 
         obstacle.transform.position = new Vector3(xPos, go.transform.position.y, 0f);
         obstacle.SetSpeed(moveSpeed);
+    }
+
+    void SpawnItem()
+    {
+        float xPos = theApp.Data.spawnData.spawnOffsetX;
+        float yPos = Random.Range(itemSpawnMinY, itemSpawnMaxY);
+
+        float rand = Random.value;
+        float sum = 0f;
+
+        int itemID = -1;
+
+        foreach (ItemData item in theApp.Data.itemData.Values)
+        {
+            sum += item.SpawnPercent;
+
+            if (rand <= sum)
+            {
+                itemID = item.ItemID;
+                break;
+            }
+        }
+
+        GameObject go = theApp.Res.Instantiate("Prefabs/ItemHolder");
+        go.transform.position = new Vector3(xPos, yPos, 0f);
+
+        ItemHolder itemHolder = go.GetComponent<ItemHolder>();
+        itemHolder.SetInfo(itemID, moveSpeed);
     }
 }

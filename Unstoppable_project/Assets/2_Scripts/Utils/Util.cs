@@ -15,7 +15,7 @@ public class Util
 
     public static T FindChild<T>(GameObject parent, string childName) where T : UnityEngine.Object
     {
-        foreach (T component in parent.GetComponentsInChildren<T>())
+        foreach (T component in parent.GetComponentsInChildren<T>(true))
         {
             if (component.name == childName)
                 return component;

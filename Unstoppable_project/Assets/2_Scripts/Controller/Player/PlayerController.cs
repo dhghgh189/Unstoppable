@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -31,6 +32,14 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    private bool isDead;
+    public bool IsDead
+    {
+        get { return isDead; }
+    }
+
+    public float PosX { get { return transform.position.x; } }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,6 +55,8 @@ public class PlayerController : MonoBehaviour
         theApp.Input.OnUseItemInput += OnUseItemEvent;
 
         additionalJump = 0;
+
+        isDead = false;
     }
 
     void Update()
@@ -68,7 +79,9 @@ public class PlayerController : MonoBehaviour
         
         isGround = hit.collider != null;
 
+#if UNITY_EDITOR
         SeeRays();
+#endif
     }
 
     void SeeRays()
@@ -130,9 +143,19 @@ public class PlayerController : MonoBehaviour
     public void OnDead()
     {
         // TODO : 플레이어 사망 처리
-        
+
+        if (isDead)
+            return;
+
         // 임시 
+        isDead = true;
         anim.enabled = false;
+        standingCollider.enabled = false;
+        slidingCollider.enabled = false;
+
+        theApp.Game.GameOver();
+
+        Debug.Log("player dead");   
     }
 
     public void Jump()

@@ -18,3 +18,4 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 711c10851768e431d943e3aea6a5f9fd, type: 3}
   ClassName: Fish
   Value: 150
+  SpawnPercent: 0.5

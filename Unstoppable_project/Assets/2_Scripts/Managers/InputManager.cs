@@ -11,6 +11,9 @@ public class InputManager
 
     public void OnUpdate()
     {
+        if (theApp.Game.isGameOver)
+            return;
+
         if (Input.GetButtonDown("Jump"))
             OnJumpInput?.Invoke(Define.EInputEventType.JumpDown);
         if (Input.GetButtonUp("Jump"))
@@ -23,5 +26,12 @@ public class InputManager
 
         if (Input.GetKeyDown(KeyCode.E))
             OnUseItemInput?.Invoke(Define.EInputEventType.UseItem);
+    }
+
+    public void Clear()
+    {
+        OnJumpInput = null;
+        OnSlideInput = null;
+        OnUseItemInput = null;
     }
 }

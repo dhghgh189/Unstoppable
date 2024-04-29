@@ -12,6 +12,9 @@ public class BackgroundScroll : MonoBehaviour
 
     void Update()
     {
+        if (theApp.Game.isGameOver)
+            return;
+            
         float t = Time.time;
 
         for (int i = 0; i < datas.Length; i++)
