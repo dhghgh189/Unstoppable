@@ -28,7 +28,7 @@ public class ItemHolder : MonoBehaviour
             return;
         }
 
-        gameObject.name = $"{itemData.ItemID}_{itemData.ItemName}";
+        sr.gameObject.name = $"{itemData.ItemID}_{itemData.ItemName}";
         sr.sprite = itemData.ItemSprite;
     }
 

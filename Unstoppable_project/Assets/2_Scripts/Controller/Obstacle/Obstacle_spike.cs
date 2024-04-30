@@ -7,9 +7,6 @@ public class Obstacle_spike : Obstacle
     SpriteRenderer sr;
     BoxCollider2D col;
 
-    float _minX;
-    float _maxX;
-
     float _updateScoreTick = 0.1f;
     float _currentTick;
 
@@ -21,8 +18,6 @@ public class Obstacle_spike : Obstacle
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<BoxCollider2D>();
 
-        _currentTick = _updateScoreTick;
-
         return true;
     }
 
@@ -31,15 +26,12 @@ public class Obstacle_spike : Obstacle
         Vector2 newSize = new Vector2(iSize, 1);
         sr.size = newSize;
         col.size = newSize;
-
-        _minX = col.bounds.min.x;
-        _maxX = col.bounds.max.x;
     }
 
     public override void CheckCondition()
     {
-        float minX = transform.position.x + _minX;
-        float maxX = transform.position.x + _maxX;
+        float minX = col.bounds.min.x;
+        float maxX = col.bounds.max.x;
 
         if (_currentTick >= _updateScoreTick)
         {
@@ -59,5 +51,12 @@ public class Obstacle_spike : Obstacle
         {
             isPassed = true;
         }
+    }
+
+    protected override void ResetVariables()
+    {
+        base.ResetVariables();
+
+        _currentTick = _updateScoreTick;
     }
 }

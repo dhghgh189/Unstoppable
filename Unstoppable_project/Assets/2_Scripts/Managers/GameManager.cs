@@ -50,7 +50,7 @@ public class GameManager
 
     public void GenerateScoreEffect(Vector3 pos, float score)
     {
-        GameObject go = theApp.Res.Instantiate("Prefabs/Effects/ScoreEffect");
+        GameObject go = theApp.Res.Instantiate("Prefabs/Effects/ScoreEffect", pooling: true);
         go.transform.position = pos;
         ScoreEffect effect = go.GetComponent<ScoreEffect>();
         effect.SetText($"{score}");

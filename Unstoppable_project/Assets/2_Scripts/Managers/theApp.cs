@@ -38,6 +38,7 @@ public class theApp : MonoBehaviour
     private DataManager _data = new DataManager();
     private GameManager _game = new GameManager();
     private SceneManagerEx _scene = new SceneManagerEx();
+    private PoolManager _pool = new PoolManager();
 
     public static ResourceManager Res
     {
@@ -63,10 +64,13 @@ public class theApp : MonoBehaviour
     {
         get { return Instance._game; } 
     }
-
     public static SceneManagerEx Scene
     { 
         get { return Instance._scene; } 
+    }
+    public static PoolManager Pool
+    { 
+        get { return Instance._pool; } 
     }
 
     private void Update()
@@ -76,8 +80,8 @@ public class theApp : MonoBehaviour
 
     public static void Clear()
     {
-        // 현재 생성되어 있는 ui 정리
         Input.Clear();
-        UI.Clear(); // ui clear
+        UI.Clear();
+        Pool.Clear();
     }
 }

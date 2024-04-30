@@ -60,7 +60,7 @@ public class SpawnController : MonoBehaviour
         GameObject[] _obstacles = theApp.Data.spawnData.obstaclePrefabs;
 
         int obstacleIdx = Random.Range(0, _obstacles.Length);
-        GameObject go = theApp.Res.Instantiate(_obstacles[obstacleIdx], transform);
+        GameObject go = theApp.Res.Instantiate(_obstacles[obstacleIdx], pooling: true);
 
         Obstacle obstacle = go.GetComponent<Obstacle>();
         if (obstacle as Obstacle_spike != null)
@@ -87,6 +87,7 @@ public class SpawnController : MonoBehaviour
         float yPos = Random.Range(itemSpawnMinY, itemSpawnMaxY);
 
         float rand = Random.value;
+
         float sum = 0f;
 
         int itemID = -1;
@@ -102,7 +103,7 @@ public class SpawnController : MonoBehaviour
             }
         }
 
-        GameObject go = theApp.Res.Instantiate("Prefabs/ItemHolder");
+        GameObject go = theApp.Res.Instantiate("Prefabs/ItemHolder", pooling: true);
         go.transform.position = new Vector3(xPos, yPos, 0f);
 
         ItemHolder itemHolder = go.GetComponent<ItemHolder>();

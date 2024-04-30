@@ -154,8 +154,6 @@ public class PlayerController : MonoBehaviour
         slidingCollider.enabled = false;
 
         theApp.Game.GameOver();
-
-        Debug.Log("player dead");   
     }
 
     public void Jump()

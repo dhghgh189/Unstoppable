@@ -22,8 +22,6 @@ public class Obstacle : InitBase
         // player layer
         playerLayer = LayerMask.NameToLayer("Player");
 
-        isPassed = false;
-
         return true;
     }
 
@@ -87,5 +85,15 @@ public class Obstacle : InitBase
     {
         // TODO : 플레이어 충돌시 동작 구현
         player.OnDead();
+    }
+
+    private void OnEnable()
+    {
+        ResetVariables();
+    }
+
+    protected virtual void ResetVariables()
+    {
+        isPassed = false;
     }
 }
