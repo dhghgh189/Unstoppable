@@ -6,7 +6,8 @@ public class SpawnController : MonoBehaviour
 {
     float nextSpawnTime;
     float spawnCoolTimeMin;
-    float spawnCoolTimeMax;
+
+    float currentSpawnCoolTime;
 
     float itemSpawnTick;
     float currentTick;
@@ -15,12 +16,16 @@ public class SpawnController : MonoBehaviour
     float itemSpawnMaxY;
 
     float moveSpeed;
+    float moveSpeedMax;
+
+    float spawnCoolSubValue;
+    float moveSpeedPlusValue;
 
     void Start()
     {
         nextSpawnTime = 0f;
         spawnCoolTimeMin = theApp.Data.spawnData.spawnCoolTimeMin;
-        spawnCoolTimeMax = theApp.Data.spawnData.spawnCoolTimeMax;
+        currentSpawnCoolTime = theApp.Data.spawnData.startSpawnCoolTime;
 
         itemSpawnTick = theApp.Data.spawnData.itemSpawnCoolTime;
         currentTick = 0f;
@@ -28,7 +33,16 @@ public class SpawnController : MonoBehaviour
         itemSpawnMinY = theApp.Data.spawnData.itemSpawnMinY;
         itemSpawnMaxY = theApp.Data.spawnData.itemSpawnMaxY;
 
-        moveSpeed = 3f;
+        moveSpeed = theApp.Data.spawnData.startMoveSpeed;
+        moveSpeedMax = theApp.Data.spawnData.moveSpeedMax;
+
+        spawnCoolSubValue = theApp.Data.spawnData.spawnCoolSubValue;
+        moveSpeedPlusValue = theApp.Data.spawnData.moveSpeedPlusValue;
+
+        // debug
+        Debug.Log("Start Value");
+        Debug.Log($"currentSpawnCoolTime : {currentSpawnCoolTime}");
+        Debug.Log($"moveSpeed : {moveSpeed}");
     }
 
     void Update()
@@ -38,13 +52,14 @@ public class SpawnController : MonoBehaviour
 
         if (Time.time >= nextSpawnTime)
         {
-            nextSpawnTime = Time.time + Random.Range(spawnCoolTimeMin, spawnCoolTimeMax);
+            nextSpawnTime = Time.time + currentSpawnCoolTime;
             SpawnObstacle();
         }
 
         if (currentTick >= itemSpawnTick)
         {
-            float rand = Random.value;
+            float rand = Random.Range(1, 101) / 100.0f;
+
             if (rand <= theApp.Data.spawnData.itemSpawnPercent)
                 SpawnItem();               
 
@@ -86,7 +101,7 @@ public class SpawnController : MonoBehaviour
         float xPos = theApp.Data.spawnData.spawnOffsetX;
         float yPos = Random.Range(itemSpawnMinY, itemSpawnMaxY);
 
-        float rand = Random.value;
+        float rand = Random.Range(1, 101) / 100.0f;
 
         float sum = 0f;
 
@@ -108,5 +123,19 @@ public class SpawnController : MonoBehaviour
 
         ItemHolder itemHolder = go.GetComponent<ItemHolder>();
         itemHolder.SetInfo(itemID, moveSpeed);
+    }
+
+    public void PhaseUp()
+    {
+        float newCoolTime = currentSpawnCoolTime - spawnCoolSubValue;
+        float newMoveSpeed = moveSpeed + moveSpeedPlusValue;
+
+        currentSpawnCoolTime = Mathf.Max(newCoolTime, spawnCoolTimeMin);
+        moveSpeed = Mathf.Min(newMoveSpeed, moveSpeedMax);
+
+        // debug
+        Debug.Log("Phase Up");
+        Debug.Log($"currentSpawnCoolTime : {currentSpawnCoolTime}");
+        Debug.Log($"moveSpeed : {moveSpeed}");
     }
 }

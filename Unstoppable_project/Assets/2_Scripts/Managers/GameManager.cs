@@ -16,14 +16,25 @@ public class GameManager
         } 
     }
 
-    float _score = 0;
-    public float Score
+    SpawnController _spawner;
+    public SpawnController Spawner
+    {
+        set { _spawner = value; }
+    }
+
+    int phaseUpScore;
+
+    int _score = 0;
+    public int Score
     {
         get { return _score; }
         set
         {
             _score = value;
             OnBroadCastEvent?.Invoke(Define.EBroadCastType.ChangeScore, value);
+
+            if (_score >= phaseUpScore)
+                PhaseUp();
         }
     }
 
@@ -39,7 +50,17 @@ public class GameManager
     public void GameStart()
     {
         _score = 0;
+        phaseUpScore = theApp.Data.spawnData.firstPhaseUpScore;
         isGameOver = false;
+    }
+
+    public void PhaseUp()
+    {
+        phaseUpScore *= theApp.Data.spawnData.phaseUpScoreMultiplier;
+        _spawner.PhaseUp();
+
+        // debug
+        Debug.Log($"next phase up score : {phaseUpScore}");
     }
 
     public void GameOver()
@@ -48,7 +69,7 @@ public class GameManager
         OnBroadCastEvent?.Invoke(Define.EBroadCastType.GameOver, null);
     }
 
-    public void GenerateScoreEffect(Vector3 pos, float score)
+    public void GenerateScoreEffect(Vector3 pos, int score)
     {
         GameObject go = theApp.Res.Instantiate("Prefabs/Effects/ScoreEffect", pooling: true);
         go.transform.position = pos;

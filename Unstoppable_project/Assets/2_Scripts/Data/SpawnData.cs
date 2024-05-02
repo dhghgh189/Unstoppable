@@ -15,9 +15,17 @@ public class SpawnData : ScriptableObject
     public float itemSpawnMinY = -3f;
     public float itemSpawnMaxY = -0.5f;
 
+    [Header("Difficulty")]
+    public float startMoveSpeed = 3f;
+    public float moveSpeedMax = 8f;
+    public float startSpawnCoolTime = 4.5f;
+    public float spawnCoolTimeMin = 1f;
+    public int firstPhaseUpScore = 2000;
+    public int phaseUpScoreMultiplier = 2;
+    public float spawnCoolSubValue = 0.7f;
+    public float moveSpeedPlusValue = 1f;
+
     [Header("CoolTime")]
-    public float spawnCoolTimeMin = 2.5f;
-    public float spawnCoolTimeMax = 4.5f;
     public float itemSpawnCoolTime = 5f;
 
     [Header("Spawn Offset")]

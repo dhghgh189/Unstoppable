@@ -19,8 +19,14 @@ MonoBehaviour:
   itemSpawnPercent: 0.3
   itemSpawnMinY: -3
   itemSpawnMaxY: -0.5
-  spawnCoolTimeMin: 2.5
-  spawnCoolTimeMax: 4.5
+  startMoveSpeed: 3
+  moveSpeedMax: 8
+  startSpawnCoolTime: 4.5
+  spawnCoolTimeMin: 1
+  firstPhaseUpScore: 2000
+  phaseUpScoreMultiplier: 2
+  spawnCoolSubValue: 0.7
+  moveSpeedPlusValue: 1
   itemSpawnCoolTime: 5
   spawnOffsetX: 4
   destroyOffsetX: -8

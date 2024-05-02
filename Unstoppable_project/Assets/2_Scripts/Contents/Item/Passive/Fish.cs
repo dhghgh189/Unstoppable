@@ -6,8 +6,8 @@ public class Fish : Item
 {
     public override void Use()
     {
-        theApp.Game.Score += Value;
+        theApp.Game.Score += (int)Value;
         Vector3 pos = theApp.Game.Player.transform.position;
-        theApp.Game.GenerateScoreEffect(pos, Value);
+        theApp.Game.GenerateScoreEffect(pos, (int)Value);
     }
 }

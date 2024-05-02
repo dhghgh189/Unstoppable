@@ -7,7 +7,7 @@ public class Obstacle : InitBase
     protected Rigidbody2D rb;
 
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float score;
+    [SerializeField] protected int score;
 
     LayerMask playerLayer;
     protected bool isPassed;

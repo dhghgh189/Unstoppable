@@ -66,7 +66,7 @@ public class UI_GameScene : SceneUI
         switch (type)
         {
             case Define.EBroadCastType.ChangeScore:
-                RefreshText((float)obj);
+                RefreshText((int)obj);
                 break;
             case Define.EBroadCastType.AddItem:
             case Define.EBroadCastType.UseItem:
@@ -78,7 +78,7 @@ public class UI_GameScene : SceneUI
         }
     }
 
-    void RefreshText(float score)
+    void RefreshText(int score)
     {
         GetText((int)Texts.txtScore).text = $"Score : {score}";
     }
